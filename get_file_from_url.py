@@ -5,9 +5,11 @@ import pickle
 
 def get_file(url):
     '''
-    Create and saves directories/subdirectories and files from a url into your current working directory
-    Inputs: url
-    Returns: requests.get(url)
+    Takes url and returns a requests.get(url)
+    
+    Furthermore, create and saves directories/subdirectories and files from a url into your current working directory.
+    Thus, you will not have to make more than one request per url.
+    However, the function will not check if the file has been updated just if it was downloaded from before.
     '''
     parsed_url = urlparse.urlparse(url)
     path = []
