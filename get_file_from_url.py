@@ -10,6 +10,8 @@ def get_file(url):
     Furthermore, create and saves directories/subdirectories and files from a url into your current working directory.
     Thus, you will not have to make more than one request per url.
     However, the function will not check if the file has been updated just if it was downloaded from before.
+    
+    Also, if the url is bad then
     '''
     parsed_url = urlparse.urlparse(url)
     path = []
@@ -21,7 +23,6 @@ def get_file(url):
     path = path[:-1]
     outpath = '/'.join(path)
     
-    
     if not os.path.exists(outpath):
         os.makedirs(outpath)
     if not os.path.isfile(outpath + '/' + outfile):
@@ -29,7 +30,7 @@ def get_file(url):
         if r.status_code != requests.codes.ok:
             print 'request.get(url) Status NOT 200'
             return None 
-        pickle.dump(r, open('{}'.format(outpath + '/' + outfile), 'wb'))
+        pickle.dump(r, open('{}'.format(outpath + '/' + outfile + '.p'), 'wb'))
     else:
-        r = pickle.load(open('{}'.format(outpath + '/' + outfile), 'rb'))
+        r = pickle.load(open('{}'.format(outpath + '/' + outfile + '.p'), 'rb'))
     return r
