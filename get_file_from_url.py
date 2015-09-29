@@ -11,14 +11,14 @@ def get_file(url):
     Thus, you will not have to make more than one request per url.
     However, the function will not check if the file has been updated just if it was downloaded from before.
     
-    Also, if the url is bad then
+    Also, if the url is bad then it will print an Error and will return None
     '''
     parsed_url = urlparse.urlparse(url)
     path = []
     for item in parsed_url:
-        x = item.replace('/','')
-        if x != '':
-            path.append(x)
+        for x in item.split("/"):
+            if x != '':
+                path.append(x)
     outfile = path[-1]
     path = path[:-1]
     outpath = '/'.join(path)
@@ -28,7 +28,7 @@ def get_file(url):
     if not os.path.isfile(outpath + '/' + outfile):
         r = requests.get(url)
         if r.status_code != requests.codes.ok:
-            print 'request.get(url) Status NOT 200'
+            print 'Error: request.get(url) Status NOT 200'
             return None 
         pickle.dump(r, open('{}'.format(outpath + '/' + outfile + '.p'), 'wb'))
     else:
