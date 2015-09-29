@@ -21,10 +21,15 @@ def get_file(url):
     path = path[:-1]
     outpath = '/'.join(path)
     
+    print outpath
+    
     if not os.path.exists(outpath):
         os.makedirs(outpath)
     if not os.path.isfile(outpath + '/' + outfile):
         r = requests.get(url)
+         if r.status_code != requests.codes.ok:
+             print 'request.get(url) Status NOT 200'
+             return None 
         pickle.dump(r, open('{}'.format(outpath + '/' + outfile), 'wb'))
     else:
         r = pickle.load(open('{}'.format(outpath + '/' + outfile), 'rb'))
