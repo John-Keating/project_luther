@@ -25,7 +25,7 @@ def get_file(url):
     
     if not os.path.exists(outpath):
         os.makedirs(outpath)
-    if not os.path.isfile(outpath + '/' + outfile):
+    if not os.path.isfile(outpath + '/' + outfile + '.p'):
         r = requests.get(url)
         if r.status_code != requests.codes.ok:
             print 'Error: request.get(url) Status NOT 200'
